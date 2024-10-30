@@ -1,10 +1,7 @@
 #!/bin/bash
-dnf in -y git python3
-git clone https://github.com/cs399f24/rocketchat-ec2
+dnf in -y git python3 docker
+systemctl enable --now docker
+su ec2-user -c "git clone https://github.com/cs399f24/rocketchat-ec2.git"
 cd rocketchat-ec2
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r src/requirements.txt
-cp src/chatroom.service /etc/systemd/system
-systemctl enable chatroom
-systemctl start chatroom
+docker build -t rocket .
+docker run -d -p 80:80 rocket
