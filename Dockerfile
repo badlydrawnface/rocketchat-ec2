@@ -7,7 +7,7 @@ COPY requirements.txt .
 RUN python3 -m venv .venv
 RUN .venv/bin/pip install -r requirements.txt
 
-COPY server.py .
+COPY app.py .
 
 # copy the static files
 COPY static static
