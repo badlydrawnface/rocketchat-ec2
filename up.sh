@@ -7,7 +7,7 @@
 # ----------------------------
 # Variables
 # ----------------------------
-AMI_ID="ami-06b21ccaeff8cd686"  # Amazon Linux 2 AMI for us-east-2
+AMI_ID="ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI for us-east-2
 INSTANCE_TYPE="t2.micro"          # Instance type
 KEY_NAME="vockey"                 # Your key pair name
 SECURITY_GROUP_NAME="httpssh"     # Security group name
