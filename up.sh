@@ -7,21 +7,26 @@
 # ----------------------------
 # Variables
 # ----------------------------
-AMI_ID="ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI for us-east-2
+AMI_ID="ami-0c55b159cbfafe1f0"  # Valid AMI ID for Amazon Linux 2 in us-east-2
 INSTANCE_TYPE="t2.micro"          # Instance type
 KEY_NAME="vockey"                 # Your key pair name
 SECURITY_GROUP_NAME="httpssh"     # Security group name
 
 # ----------------------------
-# Create Security Group
+# Check if Security Group Exists and Get its ID
 # ----------------------------
-SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name $SECURITY_GROUP_NAME --description "Security group for HTTP/SSH (80/22) access" --query 'GroupId' --output text)
+SECURITY_GROUP_ID=$(aws ec2 describe-security-groups --group-names $SECURITY_GROUP_NAME --query 'SecurityGroups[0].GroupId' --output text 2>/dev/null)
 
-# ----------------------------
-# Authorize Inbound HTTP and SSH Traffic
-# ----------------------------
-aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
-aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
+if [ "$SECURITY_GROUP_ID" == "None" ]; then
+    echo "Creating new security group: $SECURITY_GROUP_NAME"
+    SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name $SECURITY_GROUP_NAME --description "Security group for HTTP/SSH (80/22) access" --query 'GroupId' --output text)
+    
+    # Authorize Inbound HTTP and SSH Traffic
+    aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
+    aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
+else
+    echo "Using existing security group: $SECURITY_GROUP_ID"
+fi
 
 # ----------------------------
 # User Data Script
