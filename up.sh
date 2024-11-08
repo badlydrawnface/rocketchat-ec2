@@ -9,7 +9,7 @@
 # ----------------------------
 AMI_ID="ami-0c55b159cbfafe1f0"  # Valid AMI ID for Amazon Linux 2 in us-east-2
 INSTANCE_TYPE="t2.micro"          # Instance type
-KEY_NAME="vockey"                 # Your key pair name
+KEY_NAME="ENTER KEY NAME"                 # Your key pair name
 SECURITY_GROUP_NAME="httpssh"     # Security group name
 
 # ----------------------------
