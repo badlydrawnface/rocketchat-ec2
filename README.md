@@ -1,13 +1,12 @@
-# Overview
+# AWS Chatroom with EC2, Docker, Flask, and S3
+
+A chat application hosted on AWS utilizing EC2 instances with Docker containers to serve a Flask web application and static content from S3.
 
 # Architecture Diagram
 ![Architecture Diagram](399_AWSArchitecture1.png)
 
 # Architecture Flowchart
 ![Architecture Flowchart](giphy.gif)
-
-# AWS Chatroom with EC2, Docker, Flask, and S3
-A chat application hosted on AWS utilizing EC2 instances with Docker containers to serve a Flask web application and static content from S3.
 
 ## Launch on EC2 (Console Deployment)
 
